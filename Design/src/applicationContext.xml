@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+
+	
+	
+	<!-- 数据源配置 -->
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver">
+		</property>
+		<property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:orcl">
+		</property>
+		<property name="username" value="scott"></property>
+		<property name="password" value="oracle"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.Oracle9Dialect
+				</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/hibernate/entity/Say.hbm.xml</value>
+				<value>com/hibernate/entity/UserMessage.hbm.xml</value>
+				<value>com/hibernate/entity/ArComment.hbm.xml</value>
+				<value>com/hibernate/entity/SayComment.hbm.xml</value>
+				<value>com/hibernate/entity/Article.hbm.xml</value>
+				<value>com/hibernate/entity/FileUpload.hbm.xml</value>
+				<value>com/hibernate/entity/BlogUser.hbm.xml</value></list>
+		</property>
+		</bean>
+ 	<bean id="SayDAO" class="com.dao.impl.SayDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<!--  <bean id="UserMessageDAO"
+		class="com.hibernate.entity.UserMessageDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	-->
+	<bean id="ArCommentDAO" class="com.dao.impl.ArCommmentDaoImpl">
+		<property name="sessionFactory">  
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+<!-- 	<bean id="SayCommentDAO"
+		class="com.hibernate.entity.SayCommentDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>  -->  
+	<bean id="ArticleDAO" class="com.dao.impl.ArticleDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+		<!-- Dao配置 
+	<bean id="FileUploadDAO"
+		class="">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	-->
+	<bean id="UserDAO" class="com.dao.impl.UserDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<!-- biz配置 -->
+		<!-- user article say 查询 -->
+	<bean id="AllZipDao" class="com.biz.impl.AllZipImpl">
+		<property name="buDao" ref="UserDAO"></property>
+		<property name="articleDao" ref="ArticleDAO"></property>
+		<property name="sayDao" ref="SayDAO"></property>
+	</bean>
+		<!-- 登录查询user -->
+	<bean id="LoginZipDao" class="com.biz.impl.LoginZipDaoImpl">
+		<property name="ud" ref="UserDAO"></property>
+	</bean>
+	<!-- action 配置 -->
+		<!-- 首页显示action -->
+	<bean id="showAction"  class="com.struts.action.showAction" scope="prototype">
+		<property name="allZipDao" ref="AllZipDao"></property>
+	</bean>
+	
+		<!-- 用户登录注册action -->
+	<bean id="userAction" class="com.struts.action.userAction">
+		<property name="lzd" ref="LoginZipDao"></property>
+	</bean>
+	<!-- 事务配置 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="false"></tx:annotation-driven>
+	
+	</beans>
