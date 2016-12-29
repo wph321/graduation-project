@@ -17,4 +17,6 @@ public interface ArticleDao {
 	public void deleteById(Integer id) throws Exception;
 	
 	public Article findByTitle(String title) throws Exception;
+	
+	public void updateLikes(Integer id)throws Exception;
 }

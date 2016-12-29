@@ -8,7 +8,9 @@
     <class name="com.hibernate.entity.FileUpload" table="FILE_UPLOAD" schema="SCOTT">
         <id name="FId" type="integer">
             <column name="F_ID" precision="10" scale="0" />
-            <generator class="sequence" />
+            <generator class="sequence">
+            	<param name="sequence">file_seq</param>
+            </generator>
         </id>
         <many-to-one name="blogUser" class="com.hibernate.entity.BlogUser" fetch="select">
             <column name="U_ID" precision="10" scale="0" />

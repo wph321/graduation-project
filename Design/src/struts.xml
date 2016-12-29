@@ -7,14 +7,48 @@
 			<result name="success" type="redirect">index.jsp</result>
 			<result name="error" type="redirect">error.jsp</result>
 		</action>
-		
+		<!-- 登录action -->
 		<action name="loginuserAction" class="userAction" method="login">
 			<result name="success" type="redirect">showAction.action</result>
 			<result name="error" type="redirect">login.jsp</result>
 			<result name="kong" type="redirect">login.jsp</result>
 		</action>
+		<!-- 文章action -->
+		<action name="articleAction" class="addarticle" method="article">
+			<result name="success" type="redirect">showAction.action</result>
+			<result name="error" type="redirect">showAction.action</result>		
+		</action>
 		
-		 
+		 <!-- 文章点赞action -->
+		 <action name="likeAction" class="showAction" method="likes">
+		 	<result name="success">/success</result>
+		 	<result name="error">/showAction.action</result>
+		 </action>
+		 <!-- 注册Action -->
+		 <action name="zhuceAction" class="userAction" method="zhuce">
+		 	<result name="success" type="redirect">/login.jsp</result>
+		 	<result name="error" type="redirect">/zhuce.jsp</result>
+		 </action>
+		 <!-- 显示具体文章Action -->
+		 <action name="wholeArticle" class="showAction" method="wholeArticle">
+		 	<result name="success">/fengmian.jsp</result>
+		 	<result name="error">/showAction.action</result>
+		 </action>
+		 <!-- 评论Action -->
+		 <action name="articlecomment" class="Comment" method="addarComment">
+		 	<result name="success" type="redirectAction">/wholeArticle.action?id=${id}</result>
+		 	<result name="error">/fengmian.jsp</result>
+		 </action>
+		 <!-- 说说展示action -->
+		 <action name="showsay" class="SayAction" method="showSay">
+		 	<result name="success">/list.jsp</result>
+		 	<result name="error">/showAction.action</result>
+		 </action>
+		 <!-- 查看好友action -->
+		 <action name="showFriendiIndex" class="lookConcer" method="showFriendIndex">
+		 	<result name="success">/jstt.jsp</result>
+		 	<result name="error">/showAction.action</result>
+		 </action>
 	</package>
 
 

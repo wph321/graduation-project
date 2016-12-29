@@ -24,11 +24,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <form method="post" action="loginuserAction.action">
 		<input name="action" value="login" type="hidden">
-		 <input id="username" name="bl.username" type="text" />
+		 <input id="username" name="bl.username" type="text" value=".....username" onfocus="this.value=''" onblur="if(this.value==''){this.value='.....username'}"/>
 		<hr class="hr15">
-		<input id="pass" name="bl.pass" type="password" />
+		<input id="pass" name="bl.pass" type="password" value="" onfocus="this.value=''" onblur="if(this.value==''){this.value=''}"/>
 		<hr class="hr15">
 		<input value="登录" style="width:100%;" type="submit">
+		<br/>
+		<p>还没有账号？</p><a href="zhuce.jsp">马上去注册</a>
 		<hr class="hr20">
 		<!-- 帮助 <a onClick="alert('请联系管理员')">忘记密码</a> -->
 	</form>

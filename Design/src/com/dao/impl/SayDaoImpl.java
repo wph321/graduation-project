@@ -24,7 +24,7 @@ public class SayDaoImpl extends HibernateDaoSupport implements SayDAO {
 	}
 
 	@Override
-	public Say findByUserId(Integer id) throws Exception {
+	public Say findById(Integer id) throws Exception {
 		Session session = this.getSessionFactory().openSession();
 		Say say = (Say) session.load(Say.class, id);
 		return say;

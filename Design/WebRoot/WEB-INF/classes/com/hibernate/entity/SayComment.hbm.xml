@@ -8,7 +8,9 @@
     <class name="com.hibernate.entity.SayComment" table="SAY_COMMENT" schema="SCOTT">
         <id name="SId" type="integer">
             <column name="S_ID" precision="10" scale="0" />
-            <generator class="sequence" />
+            <generator class="sequence">
+            	<param name="sequence">sayc_seq</param>
+            </generator>
         </id>
         <many-to-one name="blogUser" class="com.hibernate.entity.BlogUser" fetch="select">
             <column name="U_ID" precision="10" scale="0" />

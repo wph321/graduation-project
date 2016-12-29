@@ -3,7 +3,6 @@ package com.dao.impl;
 import java.util.List;
 
 import org.hibernate.Query;
-import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -45,6 +44,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDAO{
 		Session session = this.getSessionFactory().openSession();
 			session.save(user);
 			session.save(usermessage);
+			session.beginTransaction().commit();
 	}
 
 }

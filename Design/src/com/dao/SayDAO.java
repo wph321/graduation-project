@@ -8,7 +8,7 @@ public interface SayDAO {
 
 	public List<Say> findAllSay(Integer id)throws Exception;
 	
-	public Say findByUserId(Integer id)throws Exception;
+	public Say findById(Integer id)throws Exception;
 	
 	public void addSay(Say say) throws Exception;
 	

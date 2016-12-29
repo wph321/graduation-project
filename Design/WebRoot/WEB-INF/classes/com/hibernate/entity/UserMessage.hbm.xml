@@ -8,7 +8,9 @@
     <class name="com.hibernate.entity.UserMessage" table="USER_MESSAGE" schema="SCOTT">
         <id name="MId" type="integer">
             <column name="M_ID" precision="10" scale="0" />
-            <generator class="sequence" />
+            <generator class="sequence">
+            	<param name="sequence">messaeg_seq</param>
+            </generator>
         </id>
         <many-to-one name="blogUser" class="com.hibernate.entity.BlogUser" fetch="select">
             <column name="U_ID" precision="10" scale="0" />
@@ -19,7 +21,7 @@
         <property name="MAge" type="integer">
             <column name="M_AGE" precision="10" scale="0" />
         </property>
-        <property name="MPhone" type="big_decimal">
+        <property name="MPhone" type="string">
             <column name="M_PHONE" precision="20" scale="0" />
         </property>
     </class>

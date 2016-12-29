@@ -18,11 +18,13 @@ public class BlogUser implements java.io.Serializable {
 	private String userHeadImg;
 	private String userOption1;
 	private String userOption2;
-	private Set saies = new HashSet(0);
-	private Set userMessages = new HashSet(0);
-	private Set sayComments = new HashSet(0);
 	private Set fileUploads = new HashSet(0);
+	private Set sayComments = new HashSet(0);
+	private Set userMessages = new HashSet(0);
+	private Set saies = new HashSet(0);
+	private Set concernsForMineId = new HashSet(0);
 	private Set arComments = new HashSet(0);
+	private Set concernsForFriendId = new HashSet(0);
 	private Set articles = new HashSet(0);
 
 	// Constructors
@@ -40,19 +42,22 @@ public class BlogUser implements java.io.Serializable {
 	/** full constructor */
 	public BlogUser(String userName, String userNumber, String userPassword,
 			String userHeadImg, String userOption1, String userOption2,
-			Set saies, Set userMessages, Set sayComments, Set fileUploads,
-			Set arComments, Set articles) {
+			Set fileUploads, Set sayComments, Set userMessages, Set saies,
+			Set concernsForMineId, Set arComments, Set concernsForFriendId,
+			Set articles) {
 		this.userName = userName;
 		this.userNumber = userNumber;
 		this.userPassword = userPassword;
 		this.userHeadImg = userHeadImg;
 		this.userOption1 = userOption1;
 		this.userOption2 = userOption2;
-		this.saies = saies;
-		this.userMessages = userMessages;
-		this.sayComments = sayComments;
 		this.fileUploads = fileUploads;
+		this.sayComments = sayComments;
+		this.userMessages = userMessages;
+		this.saies = saies;
+		this.concernsForMineId = concernsForMineId;
 		this.arComments = arComments;
+		this.concernsForFriendId = concernsForFriendId;
 		this.articles = articles;
 	}
 
@@ -114,20 +119,12 @@ public class BlogUser implements java.io.Serializable {
 		this.userOption2 = userOption2;
 	}
 
-	public Set getSaies() {
-		return this.saies;
+	public Set getFileUploads() {
+		return this.fileUploads;
 	}
 
-	public void setSaies(Set saies) {
-		this.saies = saies;
-	}
-
-	public Set getUserMessages() {
-		return this.userMessages;
-	}
-
-	public void setUserMessages(Set userMessages) {
-		this.userMessages = userMessages;
+	public void setFileUploads(Set fileUploads) {
+		this.fileUploads = fileUploads;
 	}
 
 	public Set getSayComments() {
@@ -138,12 +135,28 @@ public class BlogUser implements java.io.Serializable {
 		this.sayComments = sayComments;
 	}
 
-	public Set getFileUploads() {
-		return this.fileUploads;
+	public Set getUserMessages() {
+		return this.userMessages;
 	}
 
-	public void setFileUploads(Set fileUploads) {
-		this.fileUploads = fileUploads;
+	public void setUserMessages(Set userMessages) {
+		this.userMessages = userMessages;
+	}
+
+	public Set getSaies() {
+		return this.saies;
+	}
+
+	public void setSaies(Set saies) {
+		this.saies = saies;
+	}
+
+	public Set getConcernsForMineId() {
+		return this.concernsForMineId;
+	}
+
+	public void setConcernsForMineId(Set concernsForMineId) {
+		this.concernsForMineId = concernsForMineId;
 	}
 
 	public Set getArComments() {
@@ -152,6 +165,14 @@ public class BlogUser implements java.io.Serializable {
 
 	public void setArComments(Set arComments) {
 		this.arComments = arComments;
+	}
+
+	public Set getConcernsForFriendId() {
+		return this.concernsForFriendId;
+	}
+
+	public void setConcernsForFriendId(Set concernsForFriendId) {
+		this.concernsForFriendId = concernsForFriendId;
 	}
 
 	public Set getArticles() {

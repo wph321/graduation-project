@@ -16,7 +16,7 @@ public class SayDaoTest {
 		SayDAO sd = (SayDAO) ac.getBean("SayDAO");
 		
 		try {
-			Say say = sd.findByUserId(1);
+			Say say = sd.findById(1);
 			List<Say> sayList = sd.findAllSay(1);
 			System.out.println(say);
 			for(Say say1:sayList){

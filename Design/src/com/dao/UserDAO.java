@@ -15,5 +15,4 @@ public interface UserDAO {
 	
 	public void addUser(BlogUser user,UserMessage usermessage)throws Exception;
 	
-	
 }

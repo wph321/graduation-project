@@ -18,9 +18,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 返回顶部调用 begin -->
 <link href="${pageContext.request.contextPath}/css/lrtk.css" rel="stylesheet" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.3.2.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/js.js"></script>
 <script type="text/javascript">
-
+	
+	function updateLike(m){
+		
+		$.ajax({
+			data:"likear.articleid="+m,
+			dataType:"html",
+			url:"likeAction.action",
+			success:function(){
+				var x = document.getElementById("likeli_"+m);
+				alert("x:" + x+",m="+m+",x.innerHTML:"+x.innerHTML );
+				var n_v =  parseInt(x.innerHTML)+1;
+				x.innerHTML=n_v;
+			},
+			error:function(){
+				alert("错误了");
+				var x = document.getElementById("likea_"+m);
+				alert("x:" + x+",m="+m);
+				var n_v =  parseInt(document.getElementById("likeli").innerHTML)+1;
+				x.innerHTML="";
+				x.innerHTML=" <li class='likes'>"+n_v+
+            "</li>";
+			}
+		});
+	}
+	
+	function showComment(arid){
+           
+            $.ajax({
+            	data:"",
+            	dataType:"",
+            	url:"",
+            	success:function(){
+            		 document.getElementById("comment_"+ardi).style.display="block";
+            	},
+            	error:function(){
+            		alert("本文章暂时没有评论");
+            	}
+            });
+	}
 
 </script>
 <!-- 返回顶部调用 end-->
@@ -35,9 +74,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <li><a href="${pageContext.request.contextPath}/index.jsp" >网站首页</a></li>
       <li><a href="${pageContext.request.contextPath}/manager/managerlogin.jsp" target="_blank" title="博主管理登陆">博主之家</a></li>
       <li><a href="${pageContext.request.contextPath}/recommended.jsp" target="_blank" title="文章推荐">文章推荐</a></li>
-      <li><a href="${pageContext.request.contextPath}/webnavigation.jsp" target="_blank" title="网站建设">网站导航</a></li>
-      <li><a href="${pageContext.request.contextPath}/jstt.jsp" target="_blank" title="技术探讨">技术探讨</a></li>
-      <li><a href="${pageContext.request.contextPath}/newstalk.jsp" target="_blank" title="碎言碎语">碎言碎语</a></li>
+      <li><a href="${pageContext.request.contextPath}/webnavigation.jsp" target="_blank" title="网站建设">相册</a></li>
+      <li><a href="${pageContext.request.contextPath}/jstt.jsp" target="_blank" title="技术探讨">技术实例文件</a></li>
+      <li><a href="${pageContext.request.contextPath}/showsay.action" target="_blank" title="碎言碎语">碎言碎语</a></li>
     </ul>
     <script src="${pageContext.request.contextPath}/js/silder.js"></script><!--获取当前页导航 高亮显示标题--> 
   </nav>
@@ -53,60 +92,93 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <h1>我的名片</h1>
       <p>网名：${user.userName}</p>
  	</c:forEach>
-      <p>性别：学生</p>
-      <p>电话：15611771790</p>
-      <p>Email：13233059810@163.com</p>
-      <ul class="linkmore">
+      <p>年龄：${usermessage.MAge}</p>
+      <p>性别：${usermessage.MSex}</p>
+      <p>电话：${usermessage.MPhone}</p>
+     <!--  <ul class="linkmore">
         <li><a href="${pageContext.request.contextPath}/leave.jsp" class="talk" title="给我留言"></a></li>
         <li><a href="index.jsp" class="address" title="返回首页"></a></li>
         <li><a href="http://mail.163.com/" class="email" title="给我写信"></a></li>
         <li><a href="photo.jsp" class="photos" title="生活照片"></a></li>
-      </ul>
+      </ul>-->
     </div>
   </div>
   <!--info end-->
   <div class="blank"></div>
   <div class="blogs">
     <ul class="bloglist">
-      <li>
-      <form action="">
+      <li> 
         <div class="arrow_box">
           <div class="ti"></div>
           
           <!--三角形-->
           <div class="ci"></div> 
-        <!--  圆形 -->
-          <input type="text" name="addarticle.title"/>
+			  <!--圆形-->
+			  
+			<form action="articleAction" method="post">
+          <h2 class="title"><br/>
+          <input type="text" name="ac.title" value=".....title" onfocus="this.value=''" onblur="if(this.value==''){this.value='.....title'}">
+          </h2>
+          <br/>
           <ul class="textinfo">
-            <a href="/"><img src="${pageContext.request.contextPath}/images/s1.jpg"></a>
-            <p><textarea name="addarticle.context" rows="10" cols="40" value="这一刻，你想过啥呢？" onfocus="this.value=''" onblur="if(this.value==''){this.value='这一刻，你想过啥呢？'}" ></textarea></p>
+            <a href="/"><img src="${pageContext.request.contextPath}/images/s2.jpg"/></a>
+            <p><textarea name="ac.context" cols="50" rows="10" value="有什么趣闻想要分享？" onfocus="this.value=''" onblur="if(this.value==''){this.value='有什么趣闻想要分享？'}"></textarea>
+            <input type="submit" value="发表"></p>
+          </ul>
+             </form>
+          <ul class="details">
           </ul>
         </div>
-        </form>
+     
         <!--arrow_box end--> 
           
-     <!-- </li>-->
-     <c:forEach var="article" items="${article}">
+     </li>
+     <c:forEach var="article1" items="${article}">
       <li>
         <div class="arrow_box">
           <div class="ti"></div>
           <!--三角形-->
           <div class="ci"></div>
           <!--圆形-->
-          <h2 class="title"><a href="/" target="_blank">${article.ATitle}</a></h2>
+          <h2 class="title"><a href="wholeArticle.action?id=${article1.AId}" target="_blank">${article1.ATitle}</a></h2>
           <ul class="textinfo">
             <a href="/"><img src="${pageContext.request.contextPath}/images/s2.jpg"></a>
-            <p> ${article.AContext}</p>
+            <p> ${article1.AContext}</p>
           </ul>
-          <ul class="details">
-           <!--  <li class="likes"><a href="#">102</a></li>
-            <li class="comments"><a href="#">58</a></li> -->
-            <li class="icon-time">${article.AData}</li>
+         <ul class="details">
+         <!--点赞 -->
+         <a id="likea_${article1.AId}" onclick="updateLike(${article1.AId})">
+            <li class="likes" id="likeli_${article1.AId}">
+            ${article1.AOption1}
+            </li>
+         </a>
+         <!-- 评论 
+            <li class="comments">-->
+            <!-- 显示评论 
+            <a id="comm_${article1.AId}" onclick="showComment(${article1.AId})">2</a>
+            </li>-->
+          <!-- 时间 -->
+            <li class="icon-time">
+            <a href="#">${article1.AData}</a>
+            </li>
+          </ul>
+          
+          <ul id="comment_${article1.AId}" class="details" style="display: none;">
+          		<!-- 评论展示 -->
+          	<li id="comment_"></li><a onclick="commentback()">回复</a>
+          		<!-- 回复文本框，默认隐藏，点击回复显示 -->
+          	<li id="comment_back" stytle="display: none;">
+          	<form action="arcommentbackAction.action" method="post">
+          		<input type="text" name="  " />
+          		<input type="submit" value="回复" />
+          	</form>
+          	</li>
           </ul>
         </div>
+        </li>
+       </c:forEach>
+        
         <!--arrow_box end--> 
-      </li>
-      </c:forEach>
       <li>
         <div class="arrow_box">
           <div class="ti"></div>
@@ -118,13 +190,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <a href="/"><img src="${pageContext.request.contextPath}/images/s3.jpg"></a>
             <p> 有时候不是我不理你，其实我也想你了，只是我不知道该对你说什么。不管过去如何，过去的已经过去，最好的总在未来等着你。当我们懂得珍惜平凡的幸福的时候，就已经成了人生的赢家。Nothing is as sweet as you再没什么，能甜蜜如你。我以为只要很认真的喜欢就能打动一个人...</p>
           </ul>
-          <!-- 
+         
           <ul class="details">
-            <li class="likes"><a href="#">15</a></li>
+            <li class="likes"><a onclick="var x = parseInt(this.innerHTML);this.innerHTML=x+1">15</a></li>
             <li class="comments"><a href="#">2</a></li>
             <li class="icon-time"><a href="#">2013-8-7</a></li>
           </ul>
-           -->
+          
         </div>
         <!--arrow_box end--> 
       </li>
@@ -139,13 +211,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <a href="/"><img src="${pageContext.request.contextPath}/images/s4.jpg"></a>
             <p> 男人都是孩子，需要用一生时间来长大。女人都想当孩子，却最擅长的角色是妈妈。恋爱一开始，是两个孩子之间的游戏，到后来，成了大人和孩子之间的游戏。恋爱这回事，总要有一个人先长大，对另一半多些包容和宠溺。而通常来看：谁更心软，谁就先长大...</p>
           </ul>
-          <!-- 
-          <ul class="details">
-            <li class="likes"><a href="#">102</a></li>
-            <li class="comments"><a href="#">58</a></li>
+         <ul class="details">
+            <li class="likes"><a onclick="var x = parseInt(this.innerHTML);this.innerHTML=x+1">15</a></li>
+            <li class="comments"><a href="#">2</a></li>
             <li class="icon-time"><a href="#">2013-8-7</a></li>
           </ul>
-           -->
         </div>
         <!--arrow_box end--> 
       </li>
@@ -160,13 +230,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <a href="/"><img src="${pageContext.request.contextPath}/images/s5.jpg"></a>
             <p> 趁我们都还年轻,多走几步路，多欣赏下沿途的风景，不要急于抵达目的地而错过了流年里温暖的人和物；趁我们都还年轻，多说些浪漫的话语，多做些幼稚的事情，不要嫌人笑话错过了生命中最美好的片段和场合；趁我们都还年轻，把距离缩短，把时间延长。趁我们都还年轻，多做些我们想要做的任何事...</p>
           </ul>
-          <!--
-          <ul class="details">
-            <li class="likes"><a href="#">15</a></li>
+         <ul class="details">
+            <li class="likes"><a onclick="var x = parseInt(this.innerHTML);this.innerHTML=x+1">15</a></li>
             <li class="comments"><a href="#">2</a></li>
             <li class="icon-time"><a href="#">2013-8-7</a></li>
           </ul>
-           -->
         </div>
         <!--arrow_box end--> 
       </li>
@@ -177,7 +245,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <h2>博主心旅</h2>
         <ol>
         <c:forEach var="say" items="${say}" step="1" begin="1" end="9" varStatus="i">
-          <li><span><strong>${i.index}</strong></span><a href="showarticl.jsp">${say.SContext}有一种思念，是淡淡的幸福,一个心情一行文字</a></li>
+          <li><span><strong>${i.index}</strong></span><a href="showSay.action?sayid=${say.SId}">${say.SContext}有一种思念，是淡淡的幸福,一个心情一行文字</a></li>
           </c:forEach>
          <!--  <li><span><strong>2</strong></span><a href="showarticl.jsp">励志人生-要做一个潇洒的女人</a></li>
           <li><span><strong>3</strong></span><a href="showarticl.jsp">女孩都有浪漫的小情怀――浪漫的求婚词</a></li>
@@ -189,39 +257,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <li><span><strong>9</strong></span><a href="showarticl.jsp">花气袭人是酒香―个人网站模板</a></li>  -->
         </ol>
       </div>
-      <div class="toppic">
-        <h2>图文并茂</h2>
-        <ul>
-          <li><a href="/"><img src="${pageContext.request.contextPath}/images/k01.jpg">腐女不可怕，就怕腐女会画画！
-            <p>伤不起</p>
-            </a></li>
-          <li><a href="/"><img src="${pageContext.request.contextPath}/images/k02.jpg">问前任，你还爱我吗？无限戳中泪点~
-            <p>感兴趣</p>
-            </a></li>
-          <li><a href="/"><img src="${pageContext.request.contextPath}/images/k03.jpg">世上所谓幸福，就是一个笨蛋遇到一个傻瓜。
-            <p>喜欢</p>
-            </a></li>
-        </ul>
-      </div>
-      <div class="clicks">
-        <h2>热门点击</h2>
-        <ol>
-          <li><span><a href="/">慢生活</a></span><a href="/">有一种思念，是淡淡的幸福,一个心情一行文字</a></li>
-          <li><span><a href="/">爱情美文</a></span><a href="/">励志人生-要做一个潇洒的女人</a></li>
-          <li><span><a href="/">慢生活</a></span><a href="/">女孩都有浪漫的小情怀――浪漫的求婚词</a></li>
-          <li><span><a href="/">博客模板</a></span><a href="/">Green绿色小清新的夏天-个人博客模板</a></li>
-          <li><span><a href="/">女生个人博客</a></span><a href="/">女生清新个人博客网站模板</a></li>
-          <li><span><a href="/">Wedding</a></span><a href="/">Wedding-婚礼主题、情人节网站模板</a></li>
-          <li><span><a href="/">三栏布局</a></span><a href="/">Column 三栏布局 个人网站模板</a></li>
-          <li><span><a href="/">个人网站模板</a></span><a href="/">时间煮雨-个人网站模板</a></li>
-          <li><span><a href="/">古典风格</a></span><a href="/">花气袭人是酒香―个人网站模板</a></li>
-        </ol>
-      </div>
-      <div class="search">
-        <form class="searchform" method="get" action="#">
-          <input type="text" name="s" value="Search" onfocus="this.value=''" onblur="this.value='Search'">
-        </form>
-      </div>
+     
+      
+     
       <div class="viny">
         <dl>
           <dt class="art"><img src="${pageContext.request.contextPath}/images/artwork.png" alt="专辑"></dt>
@@ -234,6 +272,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </dd>
           <!--也可以添加loop属性 音频加载到末尾时，会重新播放-->
         </dl>
+      </div>
+       <div class="toppic">
+        <h2>我的关注</h2>
+        <ul>
+        	<c:forEach var="friend" items="${friend}">
+          <div width="100%"><a href="showFriendiIndex.action?id=${friend.coId}"><li><img src="${pageContext.request.contextPath}/images/k01.jpg">${friend.blogUserByFriendId.userName}
+            </li></a><br/>&nbsp;&nbsp;&nbsp;<br/></div>
+            </c:forEach>
+         
+        </ul>
       </div>
     </aside>
   </div>
@@ -299,7 +347,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </div>
 </footer>
 <!-- jQuery仿腾讯回顶部和建议 代码开始 -->
-<div id="tbox"> <a id="togbook" href="/e/tool/gbook/?bid=1"></a> <a id="gotop" href="javascript:void(0)"></a> </div>
+<div id="tbox"> <a id="togbook" href="${pageContext.request.contextPath}/showsay.action"></a> <a id="gotop" href="javascript:void(0)"></a> </div>
 <!-- 代码结束 -->
 </body>
 </html>

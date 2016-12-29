@@ -1,6 +1,5 @@
 package com.hibernate.entity;
 
-import java.math.BigDecimal;
 
 /**
  * UserMessage entity. @author MyEclipse Persistence Tools
@@ -14,7 +13,7 @@ public class UserMessage implements java.io.Serializable {
 	private BlogUser blogUser;
 	private String MSex;
 	private Integer MAge;
-	private BigDecimal MPhone;
+	private String MPhone;
 
 	// Constructors
 
@@ -24,7 +23,7 @@ public class UserMessage implements java.io.Serializable {
 
 	/** full constructor */
 	public UserMessage(BlogUser blogUser, String MSex, Integer MAge,
-			BigDecimal MPhone) {
+			String MPhone) {
 		this.blogUser = blogUser;
 		this.MSex = MSex;
 		this.MAge = MAge;
@@ -65,11 +64,11 @@ public class UserMessage implements java.io.Serializable {
 		this.MAge = MAge;
 	}
 
-	public BigDecimal getMPhone() {
+	public String getMPhone() {
 		return this.MPhone;
 	}
 
-	public void setMPhone(BigDecimal MPhone) {
+	public void setMPhone(String MPhone) {
 		this.MPhone = MPhone;
 	}
 

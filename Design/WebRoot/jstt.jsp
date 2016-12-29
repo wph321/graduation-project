@@ -46,43 +46,69 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <figcaption><strong>渡人如渡己，渡已，亦是渡</strong> 当我们被误解时，会花很多时间去辩白。 但没有用，没人愿意听，大家习惯按自己的所闻、理解做出判别，每个人其实都很固执。与其努力且痛苦的试图扭转别人的评判，不如默默承受，给大家多一点时间和空间去了解。而我们省下辩解的功夫，去实现自身更久远的人生价值。其实，渡人如渡己，渡已，亦是渡人。</figcaption>
     </figure>
     <div class="card">
+     
       <h1>我的名片</h1>
-      <p>网名：DanceSmile | 黯然神伤</p>
-      <p>职业：学生</p>
-      <p>电话：15611771790</p>
-      <p>Email：13233059810@163.com</p>
-      <ul class="linkmore">
-        <li><a href="/" class="talk" title="给我留言"></a></li>
-        <li><a href="/" class="address" title="联系地址"></a></li>
-        <li><a href="/" class="email" title="给我写信"></a></li>
-        <li><a href="/" class="photos" title="生活照片"></a></li>
-        <li><a href="/" class="heart" title="关注我"></a></li>
-      </ul>
+      <p>网名：${friendusermessage.blogUser.userName}</p>
+ 	
+      <p>年龄：${friendusermessage.MAge}</p>
+      <p>性别：${friendusermessage.MSex}</p>
+      <p>电话：${friendusermessage.MPhone}</p>
+     <!--  <ul class="linkmore">
+        <li><a href="${pageContext.request.contextPath}/leave.jsp" class="talk" title="给我留言"></a></li>
+        <li><a href="index.jsp" class="address" title="返回首页"></a></li>
+        <li><a href="http://mail.163.com/" class="email" title="给我写信"></a></li>
+        <li><a href="photo.jsp" class="photos" title="生活照片"></a></li>
+      </ul>-->
     </div>
   </div>
   <!--info end-->
   <div class="blank"></div>
   <div class="blogs">
     <ul class="bloglist">
+       <c:forEach var="article1" items="${friendarticle}">
       <li>
         <div class="arrow_box">
           <div class="ti"></div>
           <!--三角形-->
           <div class="ci"></div>
           <!--圆形-->
-          <h2 class="title"><a href="/" target="_blank">我希望我的爱情是这样的</a></h2>
+          <h2 class="title"><a href="wholeArticle.action?id=${article1.AId}" target="_blank">${article1.ATitle}</a></h2>
           <ul class="textinfo">
-            <a href="/"><img src="${pageContext.request.contextPath}/images/s1.jpg"></a>
-            <p> 我希望我的爱情是这样的，相濡以沫，举案齐眉，平淡如水。我在岁月中找到他，依靠他，将一生交付给他。做他的妻子，他孩子的母亲，为他做饭，洗衣服，缝一颗掉了的纽扣。然后，我们一起在时光中变老。</p>
+            <a href="/"><img src="${pageContext.request.contextPath}/images/s2.jpg"></a>
+            <p> ${article1.AContext}</p>
           </ul>
-          <ul class="details">
-            <li class="likes"><a href="#">10</a></li>
-            <li class="comments"><a href="#">34</a></li>
-            <li class="icon-time"><a href="#">2013-8-7</a></li>
+         <ul class="details">
+         <!--点赞 -->
+         <a id="likea_${article1.AId}" onclick="updateLike(${article1.AId})">
+            <li class="likes" id="likeli_${article1.AId}">
+            ${article1.AOption1}
+            </li>
+         </a>
+         <!-- 评论 
+            <li class="comments">-->
+            <!-- 显示评论 
+            <a id="comm_${article1.AId}" onclick="showComment(${article1.AId})">2</a>
+            </li>-->
+          <!-- 时间 -->
+            <li class="icon-time">
+            <a href="#">${article1.AData}</a>
+            </li>
+          </ul>
+          
+          <ul id="comment_${article1.AId}" class="details" style="display: none;">
+          		<!-- 评论展示 -->
+          	<li id="comment_"></li><a onclick="commentback()">回复</a>
+          		<!-- 回复文本框，默认隐藏，点击回复显示 -->
+          	<li id="comment_back" stytle="display: none;">
+          	<form action="arcommentbackAction.action" method="post">
+          		<input type="text" name="  " />
+          		<input type="submit" value="回复" />
+          	</form>
+          	</li>
           </ul>
         </div>
-        <!--arrow_box end--> 
-      </li>
+        </li>
+       </c:forEach>
       <li>
         <div class="arrow_box">
           <div class="ti"></div>
@@ -163,9 +189,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--bloglist end-->
     <aside>
       <div class="tuijian">
-        <h2>推荐文章</h2>
+        <h2>博主心旅</h2>
         <ol>
-          <li><span><strong>1</strong></span><a href="/">有一种思念，是淡淡的幸福,一个心情一行文字</a></li>
+          <c:forEach var="say" items="${friendsay}" step="1" begin="1" end="9" varStatus="i">
+          <li><span><strong>${i.index}</strong></span><a href="showSay.action?sayid=${say.SId}">${say.SContext}</a></li>
+          </c:forEach><!--
           <li><span><strong>2</strong></span><a href="/">励志人生-要做一个潇洒的女人</a></li>
           <li><span><strong>3</strong></span><a href="/">女孩都有浪漫的小情怀――浪漫的求婚词</a></li>
           <li><span><strong>4</strong></span><a href="/">Green绿色小清新的夏天-个人博客模板</a></li>
@@ -174,40 +202,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <li><span><strong>7</strong></span><a href="/">Column 三栏布局 个人网站模板</a></li>
           <li><span><strong>8</strong></span><a href="/">时间煮雨-个人网站模板</a></li>
           <li><span><strong>9</strong></span><a href="/">花气袭人是酒香―个人网站模板</a></li>
+        	-->
         </ol>
-      </div>
-      <div class="toppic">
-        <h2>图文并茂</h2>
-        <ul>
-          <li><a href="/"><img src="${pageContext.request.contextPath}/images/k01.jpg">腐女不可怕，就怕腐女会画画！
-            <p>伤不起</p>
-            </a></li>
-          <li><a href="/"><img src="${pageContext.request.contextPath}/images/k02.jpg">问前任，你还爱我吗？无限戳中泪点~
-            <p>感兴趣</p>
-            </a></li>
-          <li><a href="/"><img src="${pageContext.request.contextPath}/images/k03.jpg">世上所谓幸福，就是一个笨蛋遇到一个傻瓜。
-            <p>喜欢</p>
-            </a></li>
-        </ul>
-      </div>
-      <div class="clicks">
-        <h2>热门点击</h2>
-        <ol>
-          <li><span><a href="/">慢生活</a></span><a href="/">有一种思念，是淡淡的幸福,一个心情一行文字</a></li>
-          <li><span><a href="/">爱情美文</a></span><a href="/">励志人生-要做一个潇洒的女人</a></li>
-          <li><span><a href="/">慢生活</a></span><a href="/">女孩都有浪漫的小情怀――浪漫的求婚词</a></li>
-          <li><span><a href="/">博客模板</a></span><a href="/">Green绿色小清新的夏天-个人博客模板</a></li>
-          <li><span><a href="/">女生个人博客</a></span><a href="/">女生清新个人博客网站模板</a></li>
-          <li><span><a href="/">Wedding</a></span><a href="/">Wedding-婚礼主题、情人节网站模板</a></li>
-          <li><span><a href="/">三栏布局</a></span><a href="/">Column 三栏布局 个人网站模板</a></li>
-          <li><span><a href="/">个人网站模板</a></span><a href="/">时间煮雨-个人网站模板</a></li>
-          <li><span><a href="/">古典风格</a></span><a href="/">花气袭人是酒香―个人网站模板</a></li>
-        </ol>
-      </div>
-      <div class="search">
-        <form class="searchform" method="get" action="#">
-          <input type="text" name="s" value="Search" onfocus="this.value=''" onblur="this.value='Search'">
-        </form>
       </div>
       <div class="viny">
         <dl>

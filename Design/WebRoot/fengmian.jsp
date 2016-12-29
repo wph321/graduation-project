@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -7,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<meta charset="gb2312">
+<meta charset="gb2312"> 
 <title>view-黑色时间轴个人博客模板</title>
 <meta name="keywords" content="黑色模板,个人网站模板,个人博客模板,博客模板,css3,html5,网站模板" />
 <meta name="description" content="这是一个有关黑色时间轴的css3 html5 网站模板" />
@@ -43,105 +44,76 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div id="mainbody">
    <div class="blogs">
     <div class="newlist">
-  <h2><span>
-<a href="/news/china/">国内新闻</a><a href="/news/world/">国际新闻</a><a href="/news/ent/">娱乐新闻</a><a href="/news/sports/">体育新闻</a></span>您当前的位置：<a href="/index.html">首页</a>&nbsp;>&nbsp;<a href="/news/">新闻中心</a></h2>
-     <ul>
-<h3>国内新闻</h3>
-
-<li><span>2012-12-10</span><a href="/news/china/2012-12-10/69.html" title="广东丹霞山发现巨型"青铜剑"(组图)">广东丹霞山发现巨型"青铜剑"(组图)</a></li>
-
-<li><span>2012-12-10</span><a href="/news/china/2012-12-10/68.html" title="驻日大使崔天凯:胡锦涛主席访日有三点值得关注">驻日大使崔天凯:胡锦涛主席访日有三点值得</a></li>
-
-<li><span>2012-12-10</span><a href="/news/china/2012-12-10/67.html" title="杭州湾跨海大桥日均车流量逾10万(组图)">杭州湾跨海大桥日均车流量逾10万(组图)</a></li>
-
-<li><span>2012-12-10</span><a href="/news/china/2012-12-10/66.html" title="广东省物价局：粮价节后上涨不可信">广东省物价局：粮价节后上涨不可信</a></li>
-
-<li><span>2012-12-10</span><a href="/news/china/2012-12-10/65.html" title="柏杨葬礼将于14日举行 骨灰抛撒绿岛海面">柏杨葬礼将于14日举行 骨灰抛撒绿岛海面</a></li>
-<h3>国际新闻</h3>
-
-<li><span>2012-12-10</span><a href="/news/world/2012-12-10/72.html" title="中国紧急援助物资运抵缅甸仰光(组图)">中国紧急援助物资运抵缅甸仰光(组图)</a></li>
-
-<li><span>2012-12-10</span><a href="/news/world/2012-12-10/70.html" title="俄罗斯第三任总统梅德韦杰夫宣誓就职">俄罗斯第三任总统梅德韦杰夫宣誓就职</a></li>
-
-<li><span>2012-12-10</span><a href="/news/world/2012-12-10/15.html" title="中国紧急援助物资运抵缅甸仰光(组图)">中国紧急援助物资运抵缅甸仰光(组图)</a></li>
-
-<li><span>2012-12-10</span><a href="/news/world/2012-12-10/14.html" title="印度成功试射一枚“烈火－3”型导弹">印度成功试射一枚“烈火－3”型导弹</a></li>
-
-<li><span>2012-12-10</span><a href="/news/world/2012-12-10/13.html" title="马来红新月会宣布将向缅甸派出救灾小组">马来红新月会宣布将向缅甸派出救灾小组</a></li>
-<h3>娱乐新闻</h3>
-
-<li><span>2012-12-10</span><a href="/news/ent/2012-12-10/76.html" title="“最美清洁工”原是《赤壁》宫女">“最美清洁工”原是《赤壁》宫女</a></li>
-
-<li><span>2012-12-10</span><a href="/news/ent/2012-12-10/75.html" title="尹馨大胆亮相《男人装》 嫩肤美腿勾人魂">尹馨大胆亮相《男人装》 嫩肤美腿勾人魂</a></li>
-
-<li><span>2012-12-10</span><a href="/news/ent/2012-12-10/74.html" title="传张艺谋因执导奥运身价涨5倍">传张艺谋因执导奥运身价涨5倍</a></li>
-
-<li><span>2012-12-10</span><a href="/news/ent/2012-12-10/73.html" title="张曼玉广告写真花絮曝光 流露优雅从容">张曼玉广告写真花絮曝光 流露优雅从容</a></li>
-<h3>体育新闻</h3>
-
-<li><span>2012-12-10</span><a href="/news/sports/2012-12-10/78.html" title="中国男乒第16次捧起斯韦思林杯">中国男乒第16次捧起斯韦思林杯</a></li>
-
-<li><span>2012-12-10</span><a href="/news/sports/2012-12-10/77.html" title="科比专为大场面而生">科比专为大场面而生</a></li>
-
-<li><span>2012-12-10</span><a href="/news/sports/2012-12-10/71.html" title="奥运圣火成功登顶珠峰">奥运圣火成功登顶珠峰</a></li>
-  </ul>
+ 
+<h2>${wholeArticle.ATitle}</h2>
+	<br/><br/>
+	<hr/>
+	<p>时间:${wholeArticle.AData}</p>
+	<p>作者:${wholeArticle.blogUser.userName}</p>
+	<p>类型:${wholeArticle.AType}</p>
+	<br/>
+	<p>${wholeArticle.AContext}</p>
+	<br/><br/><br/>
+	<form action="articlecomment.action?id=${wholeArticle.AId}" method="post">
+	<input type="text" name="context" />
+	<input type="submit" value="评论"/>
+	</form>
+	
+	<hr/>
+	<c:forEach var="arComment" items="${arComment}">
+	<p>${arComment.blogUser.userName}评论: ${arComment.arcContext}</p><br/>
+	<p>${arComment.arcDate}</p>
+	</c:forEach>
+	
 </div>
     <!--bloglist end-->
-    <aside>
-      <div class="search">
-        <form class="searchform" method="get" action="#">
-          <input type="text" name="s" value="Search" onfocus="this.value=''" onblur="this.value='Search'">
-        </form>
-      </div>
-      <div class="sunnav">
-        <ul>
-          <li><a href="/web/" target="_blank" title="网站建设">网站建设</a></li>
-          <li><a href="/newshtml5/" target="_blank" title="HTML5 / CSS3">HTML5 / CSS3</a></li>
-          <li><a href="/jstt/" target="_blank" title="技术探讨">技术探讨</a></li>
-          <li><a href="/news/s/" target="_blank" title="慢生活">慢生活</a></li>
-        </ul>
-      </div>
+      <aside>
       <div class="tuijian">
-        <h2>栏目更新</h2>
+        <h2>博主心旅</h2>
         <ol>
-          <li><span><strong>1</strong></span><a href="/">有一种思念，是淡淡的幸福,一个心情一行文字</a></li>
-          <li><span><strong>2</strong></span><a href="/">励志人生-要做一个潇洒的女人</a></li>
-          <li><span><strong>3</strong></span><a href="/">女孩都有浪漫的小情怀――浪漫的求婚词</a></li>
-          <li><span><strong>4</strong></span><a href="/">Green绿色小清新的夏天-个人博客模板</a></li>
-          <li><span><strong>5</strong></span><a href="/">女生清新个人博客网站模板</a></li>
-          <li><span><strong>6</strong></span><a href="/">Wedding-婚礼主题、情人节网站模板</a></li>
-          <li><span><strong>7</strong></span><a href="/">Column 三栏布局 个人网站模板</a></li>
-          <li><span><strong>8</strong></span><a href="/">时间煮雨-个人网站模板</a></li>
-          <li><span><strong>9</strong></span><a href="/">花气袭人是酒香―个人网站模板</a></li>
+        <c:forEach var="say" items="${say}" step="1" begin="1" end="9" varStatus="i">
+          <li><span><strong>${i.index}</strong></span><a href="showSay.action?sayid=${say.SId}">${say.SContext}有一种思念，是淡淡的幸福,一个心情一行文字</a></li>
+          </c:forEach>
+         <!--  <li><span><strong>2</strong></span><a href="showarticl.jsp">励志人生-要做一个潇洒的女人</a></li>
+          <li><span><strong>3</strong></span><a href="showarticl.jsp">女孩都有浪漫的小情怀――浪漫的求婚词</a></li>
+          <li><span><strong>4</strong></span><a href="showarticl.jsp">Green绿色小清新的夏天-个人博客模板</a></li>
+          <li><span><strong>5</strong></span><a href="showarticl.jsp">女生清新个人博客网站模板</a></li>
+          <li><span><strong>6</strong></span><a href="showarticl.jsp">Wedding-婚礼主题、情人节网站模板</a></li>
+          <li><span><strong>7</strong></span><a href="showarticl.jsp">Column 三栏布局 个人网站模板</a></li>
+          <li><span><strong>8</strong></span><a href="showarticl.jsp">时间煮雨-个人网站模板</a></li>
+          <li><span><strong>9</strong></span><a href="showarticl.jsp">花气袭人是酒香―个人网站模板</a></li>  -->
         </ol>
       </div>
-      <div class="toppic">
-        <h2>图文并茂</h2>
+     
+      
+     
+      <div class="viny">
+        <dl>
+          <dt class="art"><img src="${pageContext.request.contextPath}/images/artwork.png" alt="专辑"></dt>
+          <dd class="icon-song"><span></span>打错了</dd>
+          <dd class="icon-artist"><span></span>歌手：林俊杰（JJ）</dd>
+          <dd class="icon-album"><span></span>所属专辑：《梦想音乐人》</dd>
+          <dd class="icon-like"><span></span><a href="/">喜欢</a></dd>
+          <dd class="music">
+            <audio src="${pageContext.request.contextPath}/music/nf.mp3" controls></audio>
+          </dd>
+          <!--也可以添加loop属性 音频加载到末尾时，会重新播放-->
+        </dl>
+      </div>
+       <div class="toppic">
+        <h2>好友列表</h2>
         <ul>
-          <li><a href="/"><img src="${pageContext.request.contextPath}/images/k01.jpg">腐女不可怕，就怕腐女会画画！
-            <p>伤不起</p>
+        	<c:forEach var="friend" items="${friend}">
+          <li><a href="/"><img src="${pageContext.request.contextPath}/images/k01.jpg">${friend.blogUserByFriendId.userName}
             </a></li>
+            </c:forEach>
           <li><a href="/"><img src="${pageContext.request.contextPath}/images/k02.jpg">问前任，你还爱我吗？无限戳中泪点~
-            <p>感兴趣</p>
+            <p>111</p>
             </a></li>
           <li><a href="/"><img src="${pageContext.request.contextPath}/images/k03.jpg">世上所谓幸福，就是一个笨蛋遇到一个傻瓜。
-            <p>喜欢</p>
+            <p>222</p>
             </a></li>
         </ul>
-      </div>
-      <div class="clicks">
-        <h2>热门点击</h2>
-        <ol>
-          <li><span><a href="/">慢生活</a></span><a href="/">有一种思念，是淡淡的幸福,一个心情一行文字</a></li>
-          <li><span><a href="/">爱情美文</a></span><a href="/">励志人生-要做一个潇洒的女人</a></li>
-          <li><span><a href="/">慢生活</a></span><a href="/">女孩都有浪漫的小情怀――浪漫的求婚词</a></li>
-          <li><span><a href="/">博客模板</a></span><a href="/">Green绿色小清新的夏天-个人博客模板</a></li>
-          <li><span><a href="/">女生个人博客</a></span><a href="/">女生清新个人博客网站模板</a></li>
-          <li><span><a href="/">Wedding</a></span><a href="/">Wedding-婚礼主题、情人节网站模板</a></li>
-          <li><span><a href="/">三栏布局</a></span><a href="/">Column 三栏布局 个人网站模板</a></li>
-          <li><span><a href="/">个人网站模板</a></span><a href="/">时间煮雨-个人网站模板</a></li>
-          <li><span><a href="/">古典风格</a></span><a href="/">花气袭人是酒香―个人网站模板</a></li>
-        </ol>
       </div>
     </aside>
   </div>
@@ -153,8 +125,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="links">
       <h2>友情链接</h2>
       <ul>
-        <li><a href="/">杨青个人博客</a></li>
-        <li><a href="http://www.3dst.com">3DST技术服务中心</a></li>
+        <li><a href="http://www.w3school.com.cn/">w3cSchool</a></li>
+        <li><a href="http://www.baidu.com">百度</a></li>
       </ul>
     </div>
     <div class="visitors">
@@ -165,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <dd>DanceSmile
           <time>49分钟前</time>
         </dd>
-        <dd>在 <a href="http://www.yangqq.com/jstt/bj/2013-07-28/530.html#comments" class="title">如果要学习web前端开发，需要学习什么？ </a>中评论：</dd>
+        <dd>在 <a href="http://www.yangqq.com/jstt/bj/2013-07-28/530.html" class="title">如果要学习web前端开发，需要学习什么？ </a>中评论：</dd>
         <dd>文章非常详细，我很喜欢.前端的工程师很少，我记得几年前yahoo花高薪招聘前端也招不到</dd>
       </dl>
       <dl>
@@ -174,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <dd>yisa
           <time>2小时前</time>
         </dd>
-        <dd>在 <a href="http://www.yangqq.com/news/s/2013-07-31/533.html#comments" class="title">芭蕾女孩的心事儿</a>中评论：</dd>
+        <dd>在 <a href="http://www.yangqq.com/news/s/2013-07-31/533.html" class="title">芭蕾女孩的心事儿</a>中评论：</dd>
         <dd>我手机里面也有这样一个号码存在</dd>
       </dl>
       <dl>
@@ -183,7 +155,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <dd>小林博客
           <time>8月7日</time>
         </dd>
-        <dd>在 <a href="http://www.yangqq.com/jstt/bj/2013-06-18/285.html#comments" class="title">如果个人博客网站再没有价值，你还会坚持吗？ </a>中评论：</dd>
+        <dd>在 <a href="http://www.yangqq.com/jstt/bj/2013-06-18/285.html" class="title">如果个人博客网站再没有价值，你还会坚持吗？ </a>中评论：</dd>
         <dd>博客色彩丰富，很是好看</dd>
       </dl>
     </div>
@@ -207,7 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </div>
 </footer>
 <!-- jQuery仿腾讯回顶部和建议 代码开始 -->
-<div id="tbox"> <a id="togbook" href="/e/tool/gbook/?bid=1"></a> <a id="gotop" href="javascript:void(0)"></a> </div>
+<div id="tbox"> <a id="togbook" href="${pageContext.request.contextPath}/showsay.action"></a> <a id="gotop" href="javascript:void(0)"></a> </div>
 <!-- 代码结束 -->
 </body>
 </html>

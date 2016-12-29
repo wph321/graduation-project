@@ -29,9 +29,9 @@ public class ArCommmentDaoImpl extends HibernateDaoSupport implements
 	@Override
 	public void add(ArComment arcomment) throws Exception {
 		// TODO Auto-generated method stub
-		Session session = this.getSessionFactory().openSession();
-		
-		session.save(arcomment);
+	 
+		this.getHibernateTemplate().save(arcomment);
+		 
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package com.biz.impl;
 import com.biz.dao.LoginZipDao;
 import com.dao.UserDAO;
 import com.hibernate.entity.BlogUser;
+import com.hibernate.entity.UserMessage;
 
 public class LoginZipDaoImpl implements LoginZipDao {
 
@@ -34,4 +35,13 @@ public class LoginZipDaoImpl implements LoginZipDao {
 		return bu;
 	}
 
+	@Override
+	public void addUser(BlogUser user, UserMessage usermessage)
+			throws Exception {
+		// TODO Auto-generated method stub
+		ud.addUser(user, usermessage);
+	}
+
+	
+	
 }

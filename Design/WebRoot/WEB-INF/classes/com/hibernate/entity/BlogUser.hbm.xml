@@ -8,7 +8,9 @@
     <class name="com.hibernate.entity.BlogUser" table="BLOG_USER" schema="SCOTT">
         <id name="userId" type="integer">
             <column name="USER_ID" precision="10" scale="0" />
-            <generator class="sequence" />
+           <generator class="sequence">
+            	<param name="sequence">user_seq</param>
+            </generator>
         </id>
         <property name="userName" type="string">
             <column name="USER_NAME" length="20" />
@@ -28,17 +30,11 @@
         <property name="userOption2" type="string">
             <column name="USER_OPTION2" length="20" />
         </property>
-        <set name="saies" inverse="true">
+        <set name="fileUploads" inverse="true">
             <key>
                 <column name="U_ID" precision="10" scale="0" />
             </key>
-            <one-to-many class="com.hibernate.entity.Say" />
-        </set>
-        <set name="userMessages" inverse="true">
-            <key>
-                <column name="U_ID" precision="10" scale="0" />
-            </key>
-            <one-to-many class="com.hibernate.entity.UserMessage" />
+            <one-to-many class="com.hibernate.entity.FileUpload" />
         </set>
         <set name="sayComments" inverse="true">
             <key>
@@ -46,17 +42,35 @@
             </key>
             <one-to-many class="com.hibernate.entity.SayComment" />
         </set>
-        <set name="fileUploads" inverse="true">
+        <set name="userMessages" inverse="true">
             <key>
                 <column name="U_ID" precision="10" scale="0" />
             </key>
-            <one-to-many class="com.hibernate.entity.FileUpload" />
+            <one-to-many class="com.hibernate.entity.UserMessage" />
+        </set>
+        <set name="saies" inverse="true">
+            <key>
+                <column name="U_ID" precision="10" scale="0" />
+            </key>
+            <one-to-many class="com.hibernate.entity.Say" />
+        </set>
+        <set name="concernsForMineId" inverse="true">
+            <key>
+                <column name="MINE_ID" precision="22" scale="0" />
+            </key>
+            <one-to-many class="com.hibernate.entity.Concern" />
         </set>
         <set name="arComments" inverse="true">
             <key>
                 <column name="U_ID" precision="10" scale="0" />
             </key>
             <one-to-many class="com.hibernate.entity.ArComment" />
+        </set>
+        <set name="concernsForFriendId" inverse="true">
+            <key>
+                <column name="FRIEND_ID" precision="10" scale="0" />
+            </key>
+            <one-to-many class="com.hibernate.entity.Concern" />
         </set>
         <set name="articles" inverse="true">
             <key>

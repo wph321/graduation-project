@@ -18,9 +18,8 @@ public class DaoTest {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
 		UserDAO bu = (UserDAO) ac.getBean("UserDAO");
 		
-		List<BlogUser> buList;
 		try {
-			buList = bu.findAllUser();
+			List<BlogUser> buList = bu.findAllUser();
 			for(BlogUser bu1:buList){
 				
 				System.out.println(bu1.getUserId());

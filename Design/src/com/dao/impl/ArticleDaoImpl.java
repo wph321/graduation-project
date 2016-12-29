@@ -2,7 +2,6 @@ package com.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -36,6 +35,7 @@ public class ArticleDaoImpl extends HibernateDaoSupport implements ArticleDao {
 		// TODO Auto-generated method stub
 		Session session = this.getSessionFactory().openSession();
 		session.save(article);
+		session.beginTransaction().commit();
 	}
 
 	@Override
@@ -43,6 +43,7 @@ public class ArticleDaoImpl extends HibernateDaoSupport implements ArticleDao {
 		// TODO Auto-generated method stub
 		Session session = this.getSessionFactory().openSession();
 		session.update(article);
+		session.beginTransaction().commit();
 	}
 
 	@Override
@@ -50,6 +51,7 @@ public class ArticleDaoImpl extends HibernateDaoSupport implements ArticleDao {
 		// TODO Auto-generated method stub
 		Session session = this.getSessionFactory().openSession();
 		session.delete(id);
+		session.beginTransaction().commit();
 	}
 
 	@Override
@@ -61,8 +63,23 @@ public class ArticleDaoImpl extends HibernateDaoSupport implements ArticleDao {
 		query.setString(0, title);
 		List<Article> arList = query.list();
 		Article ar = arList.get(0);
+//		session.close();
 		return ar;
 		
+	}
+
+	@Override
+	public void updateLikes(Integer id) throws Exception {
+		// TODO Auto-generated method stub
+		
+		Session session = this.getSessionFactory().openSession();
+		Article article = (Article) session.get(Article.class, id);
+		String option1 = Integer.toString(Integer.parseInt(article.getAOption1())+1);
+		System.out.println("likes:"+option1);
+		article.setAOption1(option1);
+		session.update(article);
+		session.beginTransaction().commit();
+		session.close();
 	}
 
 }

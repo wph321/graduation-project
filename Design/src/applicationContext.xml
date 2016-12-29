@@ -34,6 +34,7 @@
 				<prop key="hibernate.dialect">
 					org.hibernate.dialect.Oracle9Dialect
 				</prop>
+				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
 		<property name="mappingResources">
@@ -44,7 +45,8 @@
 				<value>com/hibernate/entity/SayComment.hbm.xml</value>
 				<value>com/hibernate/entity/Article.hbm.xml</value>
 				<value>com/hibernate/entity/FileUpload.hbm.xml</value>
-				<value>com/hibernate/entity/BlogUser.hbm.xml</value></list>
+				<value>com/hibernate/entity/BlogUser.hbm.xml</value>
+				<value>com/hibernate/entity/Concern.hbm.xml</value></list>
 		</property>
 		</bean>
  	<bean id="SayDAO" class="com.dao.impl.SayDaoImpl">
@@ -52,13 +54,13 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<!--  <bean id="UserMessageDAO"
-		class="com.hibernate.entity.UserMessageDAO">
+	<bean id="UserMessageDAO"
+		class="com.dao.impl.UserMessageImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	-->
+
 	<bean id="ArCommentDAO" class="com.dao.impl.ArCommmentDaoImpl">
 		<property name="sessionFactory">  
 			<ref bean="sessionFactory" />
@@ -88,31 +90,92 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	<bean id="ConcernDAO" class="com.dao.impl.ConcernDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	
 	<!-- biz配置 -->
-		<!-- user article say 查询 -->
+	
+	<!-- 好友 -->
+	<bean id="ConcernDaoImpl" class="com.biz.impl.ConcernBizImpl">
+		<property name="concerndao" ref="ConcernDAO"></property>
+	</bean>
+	<!-- 说说 -->
+	<bean id="SayZipDao" class="com.biz.impl.SayDaoImpl">
+		<property name="saydao" ref="SayDAO"></property>
+	</bean>
+	<!-- 评论Zip -->
+		<bean id="commentDao" class="com.biz.impl.CommentZipImpl">
+			<property name="arCommentDao" ref="ArCommentDAO"></property>
+		</bean>
+		<!-- article -->
+		
+	<bean id="ArticleBiz" class="com.biz.impl.ArticleBizImpl">
+		<property name="ad" ref="ArticleDAO"></property>
+	</bean>	
+	
+		<!-- UserMessage -->
+	<bean id="UserMessageBiz" class="com.biz.impl.UserMessageZipImpl">
+		<property name="usermessagedao" ref="UserMessageDAO"></property>
+	</bean>
+	
+		<!-- user article say -->
 	<bean id="AllZipDao" class="com.biz.impl.AllZipImpl">
 		<property name="buDao" ref="UserDAO"></property>
 		<property name="articleDao" ref="ArticleDAO"></property>
 		<property name="sayDao" ref="SayDAO"></property>
+		<property name="arcommentdao" ref="ArCommentDAO"></property>
+		<property name="usermessagedao" ref="UserMessageDAO"></property>
 	</bean>
-		<!-- 登录查询user -->
+		<!-- 登录user -->
 	<bean id="LoginZipDao" class="com.biz.impl.LoginZipDaoImpl">
 		<property name="ud" ref="UserDAO"></property>
 	</bean>
+	
+	
 	<!-- action 配置 -->
+		<!-- 说说显示 -->
+	<bean id="SayAction" class="com.struts.action.SayAction">
+		<property name="szd" ref="SayZipDao"></property>
+	</bean>	
 		<!-- 首页显示action -->
 	<bean id="showAction"  class="com.struts.action.showAction" scope="prototype">
 		<property name="allZipDao" ref="AllZipDao"></property>
+		<property name="czd" ref="ConcernDaoImpl"></property>
 	</bean>
 	
 		<!-- 用户登录注册action -->
 	<bean id="userAction" class="com.struts.action.userAction">
 		<property name="lzd" ref="LoginZipDao"></property>
 	</bean>
+	
+		<!-- 文章添加action -->
+	<bean id="addarticle" class="com.struts.action.ArticleAction">
+		<property name="abi" ref="ArticleBiz"></property>
+	</bean>
+	
+		<!-- 文章评论Action -->
+	<bean id="Comment" class="com.struts.action.CommentAction">
+		<property name="commentzipdao" ref="commentDao"></property>
+	</bean>	
+		<!-- 用户信息action -->
+	<bean id="userMessage" class="com.struts.action.UserMessageAction">
+		<property name="umzd" ref="UserMessageBiz"></property>
+	</bean>
+	
+		<!-- 关注好友首页action -->
+	<bean id="lookConcer" class="com.struts.action.FriendAction">
+		<property name="allZipDao" ref="AllZipDao"></property>
+		<property name="czd" ref="ConcernDaoImpl"></property>
+	</bean>
 	<!-- 事务配置 -->
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="false"></tx:annotation-driven>
+	
+	<tx:annotation-driven  transaction-manager="transactionManager" proxy-target-class="false"></tx:annotation-driven>
 	
 	</beans>
