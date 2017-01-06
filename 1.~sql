@@ -1,0 +1,141 @@
+=============================================用户信息表============================================
+
+
+drop table blog_user;
+
+create table blog_user(
+user_id number(10) primary key,
+user_name varchar2(20),
+user_number varchar2(20)not null,
+user_password varchar2(20) not null,
+user_head_img varchar2(20),
+user_option1 varchar2(20),
+user_option2 varchar2(20)
+)
+
+create sequence user_seq increment by 1;
+
+insert into blog_user values(1,'张三','123','123','/////',null,null);
+
+select* from blog_user;
+
+create table user_message(
+m_id number(10) primary key,
+m_sex varchar2(20),
+m_age number(10),
+m_phone number(20),
+u_id number(10) references blog_user(user_id)
+)
+insert into user_message values(messaeg_seq.nextval,'男',20,'12345678978',1);
+
+select *from user_message;
+
+create sequence messaeg_seq increment by 1;
+
+
+=========================================================文章表==========================================
+create table article(
+a_id number(10) primary key,
+a_title varchar2(20) not null,
+a_context varchar2(200) not null,
+a_data date not null,
+a_type varchar2(20),
+u_id number(10) references blog_user(user_id),
+a_option1 varchar2(20),
+a_option2 varchar2(20)
+)
+
+create sequence art_seq increment by 1;
+
+insert into article values(1,'Test','asgdasuguyagdguyqwdviasvidvatdawidiuqggdiuasgduygwgu',to_date('2016-11-29','yyyy-mm-dd'),'test',1,null,null);
+select * from article;
+
+=========================================================说说表==========================================
+
+create table say(
+s_id number(10) primary key,
+s_context varchar2(100) not null,
+s_date date not null,
+s_image varchar2(20),
+u_id number(10) references blog_user(user_id),
+s_option1 varchar2(20),
+s_option2 varchar2(20)
+)
+
+create sequence say_seq increment by 1;
+
+insert into say values(1,'asdfwerqwerwfcvxcvsdfwersfasdfxcvasd',to_date('2016-11-29','yyyy-mm-dd'),'//////////',1,null,null);
+
+select * from say;
+
+=========================================================评论表==========================================
+
+create table say_comment(
+s_id number(10) primary key,
+s_context varchar2(20) not null,
+s_date date not null,
+u_id number(10) references blog_user(user_id),
+say_id number(10) references say(s_id),
+s_option1 varchar2(20),
+s_option2 varchar2(20)
+)
+create sequence sayc_seq increment by 1;
+
+insert into say_comment values(sayc_seq.nextval,'sdfqweqdsfsfs',to_date('2016-11-29','yyyy-mm-dd'),1,1,null,null);
+drop table ar_comment;
+drop sequence arc_seq;
+select * from ar_comment;
+
+create table ar_comment(
+arc_id number(10) primary key,
+arc_context varchar2(20) not null,
+arc_date date not null,
+u_id number(10) references blog_user(user_id),
+ar_id number(10) references article(a_id),
+arc_option1 varchar2(20),
+arc_option2 varchar2(20)
+)
+
+create sequence arc_seq increment by 1;
+
+insert into ar_comment values(arc_seq.nextval,'adabbabusbcbaubsiu',to_date('2016-11-30','yyyy-mm-dd'),1,1,null,null);
+
+
+
+=========================================================用户，评论，文章，id表==========================
+
+
+
+
+
+
+=========================================================上传文件表======================================
+
+create table file_upload(
+f_id number(10) primary key,
+f_name varchar(20) not null,
+f_path varchar2(50)not null,
+f_type varchar2(20)not null,
+f_date date not null,
+u_id number(10) references blog_user(user_id),
+f_size number(10)
+)
+
+create sequence file_seq increment by 1;
+
+insert into file_upload values(file_seq.nextval,'asd','///////','asdqwefszxa',to_date('2016-11-30','yyyy-mm-dd'),1,26);
+
+
+
+=========================================================关注表===============================================
+create table concern(
+co_id number(20) primary key,
+friend_id number(10) references blog_user(user_id),
+mine_id number references blog_user(user_id),
+con_option1 nvarchar2(50),
+con_option2 nvarchar2(50)
+)
+
+create sequence seq_con increment by 1;
+
+insert into concern values(seq_con.nextval,4,3,null,null);
